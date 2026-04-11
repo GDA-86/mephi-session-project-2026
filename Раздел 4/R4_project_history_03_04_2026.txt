@@ -1,0 +1,42 @@
+[grushinda@mephi-2026 ~]$ sudo groupadd mephi-devs
+[sudo] пароль для grushinda: 
+[grushinda@mephi-2026 ~]$ ^[[200~sudo groupadd mephi-devs~
+bash: $'\E[200~sudo': команда не найдена
+sudo groupadd mephi-devs~[grushinda@mephi-2026 ~]$ sudo groupadd mephi-devs
+groupadd: группа «mephi-devs» уже существует
+[grushinda@mephi-2026 ~]$ sudo useradd -g mephi-devs mephi-admin
+[grushinda@mephi-2026 ~]$ echo "mephi-admin:P@ssw0rd2026" | sudo chpasswd
+[grushinda@mephi-2026 ~]$ sudo chown mephi-admin:mephi-devs /data/mephi-web
+[grushinda@mephi-2026 ~]$ sudo chmod 2775 /data/mephi-web
+[grushinda@mephi-2026 ~]$ ls -ld /data/mephi-web
+drwxrwsr-x. 3 mephi-admin mephi-devs 4096 апр  3 23:01 /data/mephi-web
+[grushinda@mephi-2026 ~]$ sudo semanage fcontext -a -t httpd_sys_content_t "/data/mephi-web(/.*)?"
+[grushinda@mephi-2026 ~]$ sudo restorecon -Rv /data/mephi-web
+Relabeled /data/mephi-web from system_u:object_r:unlabeled_t:s0 to system_u:object_r:httpd_sys_content_t:s0
+Relabeled /data/mephi-web/lost+found from system_u:object_r:unlabeled_t:s0 to system_u:object_r:httpd_sys_content_t:s0
+[grushinda@mephi-2026 ~]$ ls -Z /data/mephi-web
+system_u:object_r:httpd_sys_content_t:s0 lost+found
+[grushinda@mephi-2026 ~]$ sudo chmod u-s /usr/sbin/tcpdump
+[grushinda@mephi-2026 ~]$ sudo setcap 'cap_net_raw,cap_net_admin+ep' /usr/sbin/tcpdump
+[grushinda@mephi-2026 ~]$ getcap /usr/sbin/tcpdump
+/usr/sbin/tcpdump cap_net_admin,cap_net_raw=ep
+[grushinda@mephi-2026 ~]$ sudo -u mephi-admin tcpdump --help
+tcpdump version 4.99.4
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.1.5 30 Jan 2024
+Usage: tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count]
+		[ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ]
+		[ -i interface ] [ --immediate-mode ] [ -j tstamptype ]
+		[ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]
+		[ -r file ] [ -s snaplen ] [ -T type ] [ --version ]
+		[ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]
+		[ --time-stamp-precision precision ] [ --micro ] [ --nano ]
+		[ -z postrotate-command ] [ -Z user ] [ expression ]
+[grushinda@mephi-2026 ~]$ 
+
+
+
+
+
+
+
