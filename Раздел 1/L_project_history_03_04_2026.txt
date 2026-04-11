@@ -1,0 +1,55 @@
+
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.addresses "" ipv4.gateway "" ipv4.dns ""
+[sudo] пароль для grushinda: 
+Ошибка: не удалось изменить подключение «enp0s3»: ipv4.method: method 'manual' requires at least an address or a route
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.addresses 192.168.0.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.gateway 192.168.0.1
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli connection up enp0s3
+Подключение успешно активировано (активный путь D-Bus: /org/freedesktop/NetworkManager/ActiveConnection/3)
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=108 time=20.5 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=108 time=110 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=108 time=56.6 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=108 time=21.3 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3000ms
+rtt min/avg/max/mdev = 20.491/52.203/110.413/36.629 ms
+[grushinda@mephi-2026 ~]$ history > ~/project_history_03_04_2026.txt
+[grushinda@mephi-2026 ~]$ history >> ~/project_history_03_04_2026.txt
+[grushinda@mephi-2026 ~]$ ip route | grep default
+default via 192.168.0.1 dev enp0s3 proto static metric 100 
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+
+--- 192.168.1.1 ping statistics ---
+4 packets transmitted, 0 received, 100% packet loss, time 3088ms
+
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.0.1
+PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
+64 bytes from 192.168.0.1: icmp_seq=1 ttl=64 time=3.48 ms
+64 bytes from 192.168.0.1: icmp_seq=2 ttl=64 time=3.33 ms
+64 bytes from 192.168.0.1: icmp_seq=3 ttl=64 time=3.26 ms
+64 bytes from 192.168.0.1: icmp_seq=4 ttl=64 time=1.75 ms
+
+--- 192.168.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 2998ms
+rtt min/avg/max/mdev = 1.750/2.956/3.481/0.700 ms
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=108 time=20.2 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=108 time=19.8 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=108 time=19.9 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=108 time=18.2 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 2998ms
+rtt min/avg/max/mdev = 18.209/19.537/20.248/0.784 ms
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8 > /tmp/network_check.txt
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.0.1 >> /tmp/network_check.txt
+[grushinda@mephi-2026 ~]$ 
+
+
