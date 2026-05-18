@@ -1,0 +1,49 @@
+    1  cd mephi
+    2  cd /mepho/
+    3  history
+    4  cd /mephi/projects/
+    5  cd /mephi
+    6  ~sudo mkdir -p /mephi/projects/368603-dir
+    7  sudo nmcli con mod eth0 ipv4.addresses 192.168.1.100/24
+    8  sudo nmcli con mod eth0 ipv4.gateway 192.168.1.1
+    9  sudo nmcli con mod eth0 ipv4.dns 8.8.8.8
+   10  sudo nmcli con mod eth0 ipv4.method manual
+   11  sudo nmcli con up eth0
+   12  nmcli device
+   13  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+   14  sudo nmcli con mod eth0s3 ipv4.gateway 192.168.1.1
+   15  sudo nmcli con mod eth0s3 ipv4.dns 8.8.8.8
+   16  sudo nmcli con mod eth0s3ipv4.method manual
+   17  sudo nmcli con up eth0s3
+   18  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+   19  sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
+   20  sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
+   21  sudo nmcli con mod enp0s3ipv4.method manual
+   22  sudo nmcli con up enp0s3
+   23  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+   24  sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
+   25  sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
+   26  sudo nmcli con mod enp0s3 ipv4.method manual
+   27  sudo nmcli con up enp0s3
+   28  sudo hostnamectl set-hostname mephi-2026.domain.local
+   29  hostnamectl status
+   30  killall plank
+   31  plank --preferences
+   32  killall plank
+   33  ps aux | grep plank
+   34  mate-session-properties
+   35  pkill -9 plank
+   36  sudo dnf remove plank
+   37  mate-display-properties
+   38  nmcli device
+   39  sudo nmcli connection modify lo ipv4.method manual
+   40  sudo nmcli connection modify eth0 ipv4.addresses 192.168.1.100/24
+   41  sudo nmcli connection modify lo ipv4.addresses 192.168.1.100/24
+   42  sudo nmcli connection modify lo ipv4.gateway 192.168.1.1
+   43  sudo nmcli connection modify lo ipv4.dns 8.8.8.8
+   44  sudo nmcli connection up lo
+   45  ip addr show lo
+   46  sudo hostnamectl set-hostname mephi-2026.domain.local
+   47  sudo systemctl restart systemd-hostnamed
+   48  hostnamectl
+   49  history > ~/project_history.txt
