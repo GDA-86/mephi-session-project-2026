@@ -1,49 +1,931 @@
-    1  cd mephi
-    2  cd /mepho/
-    3  history
-    4  cd /mephi/projects/
-    5  cd /mephi
-    6  ~sudo mkdir -p /mephi/projects/368603-dir
-    7  sudo nmcli con mod eth0 ipv4.addresses 192.168.1.100/24
-    8  sudo nmcli con mod eth0 ipv4.gateway 192.168.1.1
-    9  sudo nmcli con mod eth0 ipv4.dns 8.8.8.8
-   10  sudo nmcli con mod eth0 ipv4.method manual
-   11  sudo nmcli con up eth0
-   12  nmcli device
-   13  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
-   14  sudo nmcli con mod eth0s3 ipv4.gateway 192.168.1.1
-   15  sudo nmcli con mod eth0s3 ipv4.dns 8.8.8.8
-   16  sudo nmcli con mod eth0s3ipv4.method manual
-   17  sudo nmcli con up eth0s3
-   18  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
-   19  sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
-   20  sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
-   21  sudo nmcli con mod enp0s3ipv4.method manual
-   22  sudo nmcli con up enp0s3
-   23  sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
-   24  sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
-   25  sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
-   26  sudo nmcli con mod enp0s3 ipv4.method manual
-   27  sudo nmcli con up enp0s3
-   28  sudo hostnamectl set-hostname mephi-2026.domain.local
-   29  hostnamectl status
-   30  killall plank
-   31  plank --preferences
-   32  killall plank
-   33  ps aux | grep plank
-   34  mate-session-properties
-   35  pkill -9 plank
-   36  sudo dnf remove plank
-   37  mate-display-properties
-   38  nmcli device
-   39  sudo nmcli connection modify lo ipv4.method manual
-   40  sudo nmcli connection modify eth0 ipv4.addresses 192.168.1.100/24
-   41  sudo nmcli connection modify lo ipv4.addresses 192.168.1.100/24
-   42  sudo nmcli connection modify lo ipv4.gateway 192.168.1.1
-   43  sudo nmcli connection modify lo ipv4.dns 8.8.8.8
-   44  sudo nmcli connection up lo
-   45  ip addr show lo
-   46  sudo hostnamectl set-hostname mephi-2026.domain.local
-   47  sudo systemctl restart systemd-hostnamed
-   48  hostnamectl
-   49  history > ~/project_history.txt
+    
+
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.addresses "" ipv4.gateway "" ipv4.dns ""
+[sudo] пароль для grushinda: 
+Ошибка: не удалось изменить подключение «enp0s3»: ipv4.method: method 'manual' requires at least an address or a route
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.addresses 192.168.0.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.gateway 192.168.0.1
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify enp0s3 ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli connection up enp0s3
+Подключение успешно активировано (активный путь D-Bus: /org/freedesktop/NetworkManager/ActiveConnection/3)
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=108 time=20.5 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=108 time=110 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=108 time=56.6 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=108 time=21.3 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3000ms
+rtt min/avg/max/mdev = 20.491/52.203/110.413/36.629 ms
+[grushinda@mephi-2026 ~]$ history > ~/project_history_03_04_2026.txt
+[grushinda@mephi-2026 ~]$ history >> ~/project_history_03_04_2026.txt
+[grushinda@mephi-2026 ~]$ ip route | grep default
+default via 192.168.0.1 dev enp0s3 proto static metric 100 
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.1.1
+PING 192.168.1.1 (192.168.1.1) 56(84) bytes of data.
+
+--- 192.168.1.1 ping statistics ---
+4 packets transmitted, 0 received, 100% packet loss, time 3088ms
+
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.0.1
+PING 192.168.0.1 (192.168.0.1) 56(84) bytes of data.
+64 bytes from 192.168.0.1: icmp_seq=1 ttl=64 time=3.48 ms
+64 bytes from 192.168.0.1: icmp_seq=2 ttl=64 time=3.33 ms
+64 bytes from 192.168.0.1: icmp_seq=3 ttl=64 time=3.26 ms
+64 bytes from 192.168.0.1: icmp_seq=4 ttl=64 time=1.75 ms
+
+--- 192.168.0.1 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 2998ms
+rtt min/avg/max/mdev = 1.750/2.956/3.481/0.700 ms
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=108 time=20.2 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=108 time=19.8 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=108 time=19.9 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=108 time=18.2 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 2998ms
+rtt min/avg/max/mdev = 18.209/19.537/20.248/0.784 ms
+[grushinda@mephi-2026 ~]$ ping -c 4 8.8.8.8 > /tmp/network_check.txt
+[grushinda@mephi-2026 ~]$ ping -c 4 192.168.0.1 >> /tmp/network_check.txt
+[grushinda@mephi-2026 ~]$ 
+
+
+
+
+
+
+
+[grushinda@mephi-2026 ~]$ sudo dnf check-update
+keyutils.x86_64                                                         1.6.3-1.red80                                                updates  
+keyutils-libs.x86_64                                                    1.6.3-1.red80                                                updates  
+kf5-kcoreaddons.x86_64                                                  5.115.0-4.red80                                              updates  
+kf5-kwallet.x86_64                                                      5.115.0-4.red80                                              updates  
+kf5-kwallet-libs.x86_64                                                 5.115.0-4.red80                                              updates  
+krb5-libs.x86_64                                                        1.21.3-4.red80                                               updates  
+krb5-pkinit.x86_64                                                      1.21.3-4.red80                                               updates  
+krb5-workstation.x86_64                                                 1.21.3-4.red80                                               updates  
+libXft.x86_64                                                           2.3.8-1.red80                                                updates  
+libadwaita.x86_64                                                       1.6.7-4.red80                                                updates  
+libarchive.x86_64                                                       3.8.1-2.red80                                                updates  
+libblkid.x86_64                                                         2.38.1-6.red80                                               updates  
+libbrotli.x86_64                                                        1.2.0-1.red80                                                updates  
+libcap.x86_64                                                           2.48-6.red80                                                 updates  
+libcloudproviders.x86_64                                                0.3.6-1.red80                                                updates  
+libcurl.x86_64                                                          8.0.1-18.red80                                               updates  
+libei.x86_64                                                            1.4.1-1.red80                                                updates  
+libeis.x86_64                                                           1.4.1-1.red80                                                updates  
+libepoxy.x86_64                                                         1.5.10-4.red80                                               updates  
+libfdisk.x86_64                                                         2.38.1-6.red80                                               updates  
+libffi.x86_64                                                           3.4.4-3.red80                                                updates  
+libfido2.x86_64                                                         1.16.0-1.red80                                               updates  
+libgcrypt.x86_64                                                        1.12.1-3.red80                                               updates  
+libgexiv2.x86_64                                                        0.14.5-1.red80                                               updates  
+libgpg-error.x86_64                                                     1.59-2.red80                                                 updates  
+libgtop2.x86_64                                                         2.41.3-3.red80                                               updates  
+libicu.x86_64                                                           71.1-4.red80                                                 updates  
+libinput.x86_64                                                         1.29.1-1.red80                                               updates  
+libipa_hbac.x86_64                                                      2.9.7-4.red80                                                updates  
+libjcat.x86_64                                                          0.2.5-1.red80                                                updates  
+libjpeg-turbo.x86_64                                                    3.1.2-2.red80                                                updates  
+libjxl.x86_64                                                           1:0.7.0-7.red80                                              updates  
+libkadm5.x86_64                                                         1.21.3-4.red80                                               updates  
+libksba.x86_64                                                          1.6.8-4.red80                                                updates  
+liblc3.x86_64                                                           1.1.3-1.red80                                                updates  
+liblouis.x86_64                                                         3.22.0-5.red80                                               updates  
+libmaxminddb.x86_64                                                     1.9.1-3.red80                                                updates  
+libmount.x86_64                                                         2.38.1-6.red80                                               updates  
+libnetapi.x86_64                                                        4.19.9-10h.red80                                             updates  
+libnfs.x86_64                                                           5.0.3-1.red80                                                updates  
+libnfsidmap.x86_64                                                      1:2.7.1-2.rc1.red80                                          updates  
+liboeffis.x86_64                                                        1.4.1-1.red80                                                updates  
+libpeas.x86_64                                                          2.0.2-1.red80                                                updates  
+libpng.x86_64                                                           2:1.6.44-4.red80                                             updates  
+libpskc.x86_64                                                          2.6.7-6.red80                                                updates  
+libreoffice-branding-redsoft.noarch                                     5:24.8-1.red80                                               updates  
+libsane-hpaio.x86_64                                                    3.25.6-5.red80                                               updates  
+libsmartcols.x86_64                                                     2.38.1-6.red80                                               updates  
+libsmbclient.x86_64                                                     4.19.9-10h.red80                                             updates  
+libsndfile.x86_64                                                       1.1.0-6.red80                                                updates  
+libsodium.x86_64                                                        1.0.18-12.red80                                              updates  
+libsoup.x86_64                                                          2.74.3-7.red80                                               updates  
+libsoup3.x86_64                                                         3.6.5-4.red80                                                updates  
+libssh.x86_64                                                           0.11.4-1.red80                                               updates  
+libssh-config.noarch                                                    0.11.4-1.red80                                               updates  
+libsss_autofs.x86_64                                                    2.9.7-4.red80                                                updates  
+libsss_certmap.x86_64                                                   2.9.7-4.red80                                                updates  
+libsss_idmap.x86_64                                                     2.9.7-4.red80                                                updates  
+libsss_nss_idmap.x86_64                                                 2.9.7-4.red80                                                updates  
+libsss_sudo.x86_64                                                      2.9.7-4.red80                                                updates  
+libtiff.x86_64                                                          4.5.1-11.red80                                               updates  
+libudisks2.x86_64                                                       2.9.3-6.red80                                                updates  
+libuuid.x86_64                                                          2.38.1-6.red80                                               updates  
+libuv.x86_64                                                            1:1.51.0-1.red80                                             updates  
+libwayland-client.x86_64                                                1.23.0-3.red80                                               updates  
+libwayland-cursor.x86_64                                                1.23.0-3.red80                                               updates  
+libwayland-egl.x86_64                                                   1.23.0-3.red80                                               updates  
+libwayland-server.x86_64                                                1.23.0-3.red80                                               updates  
+libwbclient.x86_64                                                      4.19.9-10h.red80                                             updates  
+libwinpr.x86_64                                                         4:2.11.7-5.red80                                             updates  
+libwnck3.x86_64                                                         43.3-1.red80                                                 updates  
+libxml2.x86_64                                                          2.10.4-12.red80                                              updates  
+libxmlb.x86_64                                                          0.3.22-2.red80                                               updates  
+libxslt.x86_64                                                          1.1.43-4.red80                                               updates  
+linux-firmware.noarch                                                   20260110-47.red80                                            updates  
+linux-firmware-whence.noarch                                            20260110-47.red80                                            updates  
+loginfo.noarch                                                          0.24-3.red80                                                 updates  
+loginfo.i686                                                            1.2-2.red80                                                  updates  
+loginfo.x86_64                                                          1.2-2.red80                                                  updates  
+loginfo-cli.noarch                                                      0.24-3.red80                                                 updates  
+loginfo-cli.i686                                                        1.2-2.red80                                                  updates  
+loginfo-cli.x86_64                                                      1.2-2.red80                                                  updates  
+malcontent.x86_64                                                       0.12.0-2.red80                                               updates  
+malcontent-libs.x86_64                                                  0.12.0-2.red80                                               updates  
+marco.x86_64                                                            1:1.28.1-1.red80                                             updates  
+marco-libs.x86_64                                                       1:1.28.1-1.red80                                             updates  
+mate-calc-langs-redos.noarch                                            5:1.28-2.red80                                               updates  
+mate-control-center.x86_64                                              1:1.28.0-4.red80                                             updates  
+mate-control-center-filesystem.x86_64                                   1:1.28.0-4.red80                                             updates  
+mate-control-center-langs-redos.noarch                                  5:1.28-3.red80                                               updates  
+mate-media.x86_64                                                       1:1.28.1-4.red80                                             updates  
+mate-notification-daemon.x86_64                                         1:1.28.3-1.red80                                             updates  
+mate-panel-gschemas-redos.noarch                                        5:1.28-13.red80                                              updates  
+mate-power-manager.x86_64                                               1:1.28.1-3.red80                                             updates  
+mate-settings-daemon.x86_64                                             1:1.28.0-3.red80                                             updates  
+mate-user-guide.noarch                                                  1.28.0-1.red80                                               updates  
+mc.x86_64                                                               1:4.8.28-6.red80                                             updates  
+mesa-dri-drivers.x86_64                                                 24.3.4-4.red80                                               updates  
+mesa-filesystem.x86_64                                                  24.3.4-4.red80                                               updates  
+mesa-libEGL.x86_64                                                      24.3.4-4.red80                                               updates  
+mesa-libGL.x86_64                                                       24.3.4-4.red80                                               updates  
+mesa-libgbm.x86_64                                                      24.3.4-4.red80                                               updates  
+mesa-libglapi.x86_64                                                    24.3.4-4.red80                                               updates  
+mesa-libxatracker.x86_64                                                24.3.4-4.red80                                               updates  
+mesa-vulkan-drivers.x86_64                                              24.3.4-4.red80                                               updates  
+mtr.x86_64                                                              2:0.96-2.red80                                               updates  
+mutter.x86_64                                                           47.9-1.red80                                                 updates  
+mutter-common.noarch                                                    47.9-1.red80                                                 updates  
+net-snmp-libs.x86_64                                                    1:5.9.4-4.red80                                              updates  
+nfs-utils.x86_64                                                        1:2.7.1-2.rc1.red80                                          updates  
+nmap-ncat.x86_64                                                        3:7.98-2.red80                                               updates  
+nss.x86_64                                                              3.81.0-9.red80                                               updates  
+nss-softokn.x86_64                                                      3.81.0-9.red80                                               updates  
+nss-softokn-freebl.x86_64                                               3.81.0-9.red80                                               updates  
+nss-sysinit.x86_64                                                      3.81.0-9.red80                                               updates  
+nss-tools.x86_64                                                        3.81.0-9.red80                                               updates  
+nss-util.x86_64                                                         3.81.0-9.red80                                               updates  
+nvidia-gpu-firmware.noarch                                              20260110-47.red80                                            updates  
+nvidia-kmod.x86_64                                                      3:580.95.05-5.red80                                          updates  
+oddjob.x86_64                                                           0.34.7-8.red80                                               updates  
+oddjob-mkhomedir.x86_64                                                 0.34.7-8.red80                                               updates  
+openh264.x86_64                                                         1:2.4.1-5.red80                                              updates  
+openldap.x86_64                                                         2.6.12-1.red80                                               updates  
+openldap-clients.x86_64                                                 2.6.12-1.red80                                               updates  
+openssh.x86_64                                                          9.9p1-5.red80                                                updates  
+openssh-clients.x86_64                                                  9.9p1-5.red80                                                updates  
+openssh-server.x86_64                                                   9.9p1-5.red80                                                updates  
+openssl.x86_64                                                          1:3.5.4-3.red80                                              updates  
+openssl-gost-engine.x86_64                                              3.0.3-2.red80                                                updates  
+openssl-libs.x86_64                                                     1:3.5.4-3.red80                                              updates  
+openssl-pkcs11.x86_64                                                   0.4.13-1.red80                                               updates  
+openvpn.x86_64                                                          2.6.17-1.red80                                               updates  
+pam.x86_64                                                              1.5.3-7.red80                                                updates  
+pam-libs.x86_64                                                         1.5.3-7.red80                                                updates  
+pam_usb.x86_64                                                          0.8.3-3.red80                                                updates  
+pango.x86_64                                                            1.56.3-1.red80                                               updates  
+papirus-icon-theme.noarch                                               20250501-1.red80                                             updates  
+pcre2.x86_64                                                            10.46-1.red80                                                updates  
+pcre2-syntax.noarch                                                     10.46-1.red80                                                updates  
+pcre2-utf16.x86_64                                                      10.46-1.red80                                                updates  
+pcre2-utf32.x86_64                                                      10.46-1.red80                                                updates  
+perl-AutoLoader.noarch                                                  5.74-499.red80                                               updates  
+perl-B.x86_64                                                           1.83-499.red80                                               updates  
+perl-Class-Struct.noarch                                                0.66-499.red80                                               updates  
+perl-Cpanel-JSON-XS.x86_64                                              4.40-1.red80                                                 updates  
+perl-DynaLoader.x86_64                                                  1.52-499.red80                                               updates  
+perl-English.noarch                                                     1.11-499.red80                                               updates  
+perl-Errno.x86_64                                                       1.36-499.red80                                               updates  
+perl-Fcntl.x86_64                                                       1.15-499.red80                                               updates  
+perl-File-Basename.noarch                                               2.85-499.red80                                               updates  
+perl-File-Copy.noarch                                                   2.39-499.red80                                               updates  
+perl-File-Find.noarch                                                   1.40-499.red80                                               updates  
+perl-File-stat.noarch                                                   1.12-499.red80                                               updates  
+perl-FileHandle.noarch                                                  2.03-499.red80                                               updates  
+perl-Getopt-Std.noarch                                                  1.13-499.red80                                               updates  
+perl-Git.noarch                                                         2.53.0-1.red80                                               updates  
+perl-IO.x86_64                                                          1.50-499.red80                                               updates  
+perl-IPC-Open3.noarch                                                   1.22-499.red80                                               updates  
+perl-Math-Complex.noarch                                                1.59-499.red80                                               updates  
+perl-POSIX.x86_64                                                       2.03-499.red80                                               updates  
+perl-SelectSaver.noarch                                                 1.02-499.red80                                               updates  
+perl-Symbol.noarch                                                      1.09-499.red80                                               updates  
+perl-Sys-Hostname.x86_64                                                1.24-499.red80                                               updates  
+perl-base.noarch                                                        2.27-499.red80                                               updates  
+perl-if.noarch                                                          0.61.000-499.red80                                           updates  
+perl-interpreter.x86_64                                                 4:5.36.0-499.red80                                           updates  
+perl-lib.x86_64                                                         0.65-499.red80                                               updates  
+perl-libs.x86_64                                                        4:5.36.0-499.red80                                           updates  
+perl-mro.x86_64                                                         1.26-499.red80                                               updates  
+perl-overload.noarch                                                    1.35-499.red80                                               updates  
+perl-overloading.noarch                                                 0.02-499.red80                                               updates  
+perl-subs.noarch                                                        1.04-499.red80                                               updates  
+perl-vars.noarch                                                        1.05-499.red80                                               updates  
+pinentry.x86_64                                                         1.3.0-2.red80                                                updates  
+pinentry-gnome3.x86_64                                                  1.3.0-2.red80                                                updates  
+pipewire.x86_64                                                         1.2.7-4.red80                                                updates  
+pipewire-alsa.x86_64                                                    1.2.7-4.red80                                                updates  
+pipewire-gstreamer.x86_64                                               1.2.7-4.red80                                                updates  
+pipewire-libs.x86_64                                                    1.2.7-4.red80                                                updates  
+pipewire-pulseaudio.x86_64                                              1.2.7-4.red80                                                updates  
+pipewire-utils.x86_64                                                   1.2.7-4.red80                                                updates  
+pixman.x86_64                                                           0.44.2-1.red80                                               updates  
+pkcs11-helper.x86_64                                                    1.30.0-1.red80                                               updates  
+polkit.x86_64                                                           125-3.red80                                                  updates  
+polkit-libs.x86_64                                                      125-3.red80                                                  updates  
+poppler.x86_64                                                          22.08.0-8.red80                                              updates  
+poppler-cpp.x86_64                                                      22.08.0-8.red80                                              updates  
+poppler-glib.x86_64                                                     22.08.0-8.red80                                              updates  
+poppler-utils.x86_64                                                    22.08.0-8.red80                                              updates  
+postfix.x86_64                                                          2:3.10.8-1.red80                                             updates  
+ppp.x86_64                                                              2.5.1-3.red80                                                updates  
+protobuf.x86_64                                                         3.19.6-6.red80                                               updates  
+protobuf-lite.x86_64                                                    3.19.6-6.red80                                               updates  
+pulseaudio-libs.x86_64                                                  16.1-4.red80                                                 updates  
+pulseaudio-libs-glib2.x86_64                                            16.1-4.red80                                                 updates  
+python-pip-wheel.noarch                                                 25.1.1-5.red80                                               updates  
+python-setuptools-wheel.noarch                                          78.1.1-4.red80                                               updates  
+python-unversioned-command.noarch                                       3.11.15-1.red80                                              updates  
+python3.x86_64                                                          3.11.15-1.red80                                              updates  
+python3-cairo.x86_64                                                    1.23.0-3.red80                                               updates  
+python3-cffi.x86_64                                                     1.17.1-1.red80                                               updates  
+python3-cryptography.x86_64                                             45.0.4-1.red80                                               updates  
+python3-distro.noarch                                                   1.9.0-1.red80                                                updates  
+python3-firewall.noarch                                                 2.3.1-1.red80                                                updates  
+python3-libs.x86_64                                                     3.11.15-1.red80                                              updates  
+python3-louis.noarch                                                    3.22.0-5.red80                                               updates  
+python3-lxml.x86_64                                                     4.9.3-1.red80                                                updates  
+python3-markdown.noarch                                                 3.10-1.red80                                                 updates  
+python3-pillow.x86_64                                                   12.1.1-1.red80                                               updates  
+python3-pycurl.x86_64                                                   7.45.6-1.red80                                               updates  
+python3-pyyaml.x86_64                                                   6.0.3-1.red80                                                updates  
+python3-requests.noarch                                                 2.32.4-1.red80                                               updates  
+python3-rpm.x86_64                                                      4.18.2-7.red80                                               updates  
+python3-samba.x86_64                                                    4.19.9-10h.red80                                             updates  
+python3-samba-dc.x86_64                                                 4.19.9-10h.red80                                             updates  
+python3-setuptools.noarch                                               78.1.1-4.red80                                               updates  
+python3-six.noarch                                                      1.17.0-1.red80                                               updates  
+python3-urllib3.noarch                                                  2.6.3-1.red80                                                updates  
+python3-urllib3+socks.noarch                                            2.6.3-1.red80                                                updates  
+qca-qt5.x86_64                                                          2.3.6-2.red80                                                updates  
+qt5-qtbase.x86_64                                                       5.15.14-9.red80                                              updates  
+qt5-qtbase-common.noarch                                                5.15.14-9.red80                                              updates  
+qt5-qtbase-gui.x86_64                                                   5.15.14-9.red80                                              updates  
+qt6-qtbase.x86_64                                                       6.6.3-5.red80                                                updates  
+qt6-qtbase-common.noarch                                                6.6.3-5.red80                                                updates  
+qt6-qtbase-gui.x86_64                                                   6.6.3-5.red80                                                updates  
+qtlockedfile-qt5.x86_64                                                 2.4-37.20150629git5a07df5.red80                              updates  
+qtsingleapplication-qt5.x86_64                                          2.6.1-44.red80                                               updates  
+redos-release.noarch                                                    8.0.2-38.red80                                               updates  
+redos-release-desktop.noarch                                            8.0.2-38.red80                                               updates  
+redos-theme-red-dark.noarch                                             1.4.1-1.red80                                                updates  
+redos-wallpapers.noarch                                                 1.3.0-1.red80                                                updates  
+redoswelcome.noarch                                                     2.6-1.red80                                                  updates  
+remmina.x86_64                                                          1:1.4.41-1.red80                                             updates  
+remmina-plugins-rdp.x86_64                                              1:1.4.41-1.red80                                             updates  
+remmina-plugins-vnc.x86_64                                              1:1.4.41-1.red80                                             updates  
+rpm.x86_64                                                              4.18.2-7.red80                                               updates  
+rpm-build-libs.x86_64                                                   4.18.2-7.red80                                               updates  
+rpm-libs.x86_64                                                         4.18.2-7.red80                                               updates  
+rpm-plugin-selinux.x86_64                                               4.18.2-7.red80                                               updates  
+rpm-sign-libs.x86_64                                                    4.18.2-7.red80                                               updates  
+rsyslog.x86_64                                                          8.2310.0-4.red80                                             updates  
+rsyslog-logrotate.x86_64                                                8.2310.0-4.red80                                             updates  
+rtl8125.x86_64                                                          9.014.01-11.red80                                            updates  
+rtl8125-common.noarch                                                   9.014.01-11.red80                                            updates  
+rtl8188eus.x86_64                                                       20250204-6.red80                                             updates  
+rtl8188eus-common.noarch                                                20250204-6.red80                                             updates  
+rtl8812au.x86_64                                                        1:5.6.4.2-17.red80                                           updates  
+rtl8812au-common.noarch                                                 1:5.6.4.2-17.red80                                           updates  
+rtl8821ce.x86_64                                                        20250312-6.red80                                             updates  
+rtl8821ce-common.noarch                                                 20250312-6.red80                                             updates  
+rtl8821cu.x86_64                                                        1:5.12.0-16.red80                                            updates  
+rtl8821cu-common.noarch                                                 1:5.12.0-16.red80                                            updates  
+rtl88x2bu.x86_64                                                        5.8.7.1-129.red80                                            updates  
+rtl88x2bu-common.noarch                                                 5.8.7.1-129.red80                                            updates  
+rts5139.x86_64                                                          20220824-10.red80                                            updates  
+rts5139-common.noarch                                                   20220824-10.red80                                            updates  
+rubberband.x86_64                                                       3.3.0-2.red80                                                updates  
+samba.x86_64                                                            4.19.9-10h.red80                                             updates  
+samba-client.x86_64                                                     4.19.9-10h.red80                                             updates  
+samba-client-libs.x86_64                                                4.19.9-10h.red80                                             updates  
+samba-common.noarch                                                     4.19.9-10h.red80                                             updates  
+samba-common-libs.x86_64                                                4.19.9-10h.red80                                             updates  
+samba-common-tools.x86_64                                               4.19.9-10h.red80                                             updates  
+samba-dc-libs.x86_64                                                    4.19.9-10h.red80                                             updates  
+samba-dcerpc.x86_64                                                     4.19.9-10h.red80                                             updates  
+samba-ldb-ldap-modules.x86_64                                           4.19.9-10h.red80                                             updates  
+samba-libs.x86_64                                                       4.19.9-10h.red80                                             updates  
+samba-tools.x86_64                                                      4.19.9-10h.red80                                             updates  
+samba-winbind.x86_64                                                    4.19.9-10h.red80                                             updates  
+samba-winbind-modules.x86_64                                            4.19.9-10h.red80                                             updates  
+selinux-policy.noarch                                                   38.33-4.red80                                                updates  
+selinux-policy-targeted.noarch                                          38.33-4.red80                                                updates  
+shim-x64.x86_64                                                         16.1-1                                                       updates  
+smartmontools.x86_64                                                    1:7.5-2.red80                                                updates  
+smartmontools-selinux.noarch                                            1:7.5-2.red80                                                updates  
+smbpass.noarch                                                          0.6-3.red80                                                  updates  
+sos.noarch                                                              4.10.0-1.red80                                               updates  
+sound-theme-freedesktop.noarch                                          0.8-18.red80                                                 updates  
+sqlite-libs.x86_64                                                      3.40.0-8.red80                                               updates  
+sssd.x86_64                                                             2.9.7-4.red80                                                updates  
+sssd-ad.x86_64                                                          2.9.7-4.red80                                                updates  
+sssd-client.x86_64                                                      2.9.7-4.red80                                                updates  
+sssd-common.x86_64                                                      2.9.7-4.red80                                                updates  
+sssd-common-pac.x86_64                                                  2.9.7-4.red80                                                updates  
+sssd-ipa.x86_64                                                         2.9.7-4.red80                                                updates  
+sssd-krb5.x86_64                                                        2.9.7-4.red80                                                updates  
+sssd-krb5-common.x86_64                                                 2.9.7-4.red80                                                updates  
+sssd-ldap.x86_64                                                        2.9.7-4.red80                                                updates  
+sssd-nfs-idmap.x86_64                                                   2.9.7-4.red80                                                updates  
+sssd-proxy.x86_64                                                       2.9.7-4.red80                                                updates  
+strongswan.x86_64                                                       5.9.10-4.red80                                               updates  
+strongswan-charon-nm.x86_64                                             5.9.10-4.red80                                               updates  
+tar.x86_64                                                              2:1.35-3.red80                                               updates  
+tcpdump.x86_64                                                          14:4.99.5-1.red80                                            updates  
+thunderbird.x86_64                                                      128.14.0-1.red80                                             updates  
+udisks2.x86_64                                                          2.9.3-6.red80                                                updates  
+unbound-libs.x86_64                                                     1.19.2-10.red80                                              updates  
+upower.x86_64                                                           1.90.10-1.red80                                              updates  
+upower-libs.x86_64                                                      1.90.10-1.red80                                              updates  
+usb_rules.noarch                                                        3.3-3.red80                                                  updates  
+util-linux.x86_64                                                       2.38.1-6.red80                                               updates  
+util-linux-core.x86_64                                                  2.38.1-6.red80                                               updates  
+util-linux-user.x86_64                                                  2.38.1-6.red80                                               updates  
+vim-common.x86_64                                                       2:9.2.045-1.red80                                            updates  
+vim-data.noarch                                                         2:9.2.045-1.red80                                            updates  
+vim-default-editor.noarch                                               2:9.2.045-1.red80                                            updates  
+vim-enhanced.x86_64                                                     2:9.2.045-1.red80                                            updates  
+vim-filesystem.noarch                                                   2:9.2.045-1.red80                                            updates  
+vim-minimal.x86_64                                                      2:9.2.045-1.red80                                            updates  
+virtualbox-guest-additions.x86_64                                       7.1.16-1.red80                                               updates  
+vlc.x86_64                                                              2:3.0.22-1.red80                                             updates  
+vlc-core.x86_64                                                         2:3.0.22-1.red80                                             updates  
+vte-profile.x86_64                                                      0.78.5-1.red80                                               updates  
+vte291.x86_64                                                           0.78.5-1.red80                                               updates  
+vulkan-loader.x86_64                                                    1.3.280.0-3.red80                                            updates  
+webrtc-audio-processing.x86_64                                          1.3-1.red80                                                  updates  
+wget.x86_64                                                             1.25.0-1.red80                                               updates  
+whois.x86_64                                                            5.6.4-1.red80                                                updates  
+whois-nls.noarch                                                        5.6.4-1.red80                                                updates  
+wireplumber.x86_64                                                      0.5.8-2.red80                                                updates  
+wireplumber-libs.x86_64                                                 0.5.8-2.red80                                                updates  
+wpa_supplicant.x86_64                                                   1:2.11-1.red80                                               updates  
+x264-libs.x86_64                                                        164-2.20231001git31e19f92.red80                              updates  
+xkbcomp.x86_64                                                          1.5.0-1.red80                                                updates  
+xorg-x11-xinit.x86_64                                                   1.4.0-21.red80                                               updates  
+xxd.x86_64                                                              2:9.2.045-1.red80                                            updates  
+yelp.x86_64                                                             2:42.2-3.red80                                               updates  
+yelp-libs.x86_64                                                        2:42.2-3.red80                                               updates  
+Исключение пакетов
+appstream0.16.i686                                                      0.16.1-2.red80                                               updates  
+    appstream.x86_64                                                    0.16.1-1.red80                                               @anaconda
+appstream0.16.x86_64                                                    0.16.1-2.red80                                               updates  
+    appstream.x86_64                                                    0.16.1-1.red80                                               @anaconda
+freerdp.i686                                                            4:2.11.7-5.red80                                             updates  
+    freerdp.x86_64                                                      3:3.10.3-1.red80                                             @anaconda
+freerdp.x86_64                                                          4:2.11.7-5.red80                                             updates  
+    freerdp.x86_64                                                      3:3.10.3-1.red80                                             @anaconda
+freerdp-libs.i686                                                       4:2.11.7-5.red80                                             updates  
+    freerdp-libs.x86_64                                                 3:3.10.3-1.red80                                             @anaconda
+freerdp-libs.x86_64                                                     4:2.11.7-5.red80                                             updates  
+    freerdp-libs.x86_64                                                 3:3.10.3-1.red80                                             @anaconda
+libertas-firmware.noarch                                                20240513-4.red80                                             updates  
+    libertas-usb8388-firmware.noarch                                    2:20230625-151.red80                                         @anaconda
+libertas-firmware.noarch                                                20241017-1.red80                                             updates  
+    libertas-usb8388-firmware.noarch                                    2:20230625-151.red80                                         @anaconda
+libpeas1.i686                                                           1.36.0-2.red80                                               updates  
+    libpeas.x86_64                                                      1.34.0-1.red80                                               @anaconda
+libpeas1.x86_64                                                         1.36.0-2.red80                                               updates  
+    libpeas.x86_64                                                      1.34.0-1.red80                                               @anaconda
+libpeas1-gtk.i686                                                       1.36.0-1.red80                                               updates  
+    libpeas-gtk.x86_64                                                  1.34.0-1.red80                                               @anaconda
+libpeas1-gtk.x86_64                                                     1.36.0-1.red80                                               updates  
+    libpeas-gtk.x86_64                                                  1.34.0-1.red80                                               @anaconda
+libpeas1-gtk.i686                                                       1.36.0-2.red80                                               updates  
+    libpeas-gtk.x86_64                                                  1.34.0-1.red80                                               @anaconda
+libpeas1-gtk.x86_64                                                     1.36.0-2.red80                                               updates  
+    libpeas-gtk.x86_64                                                  1.34.0-1.red80                                               @anaconda
+libpeas1-loader-python3.i686                                            1.36.0-1.red80                                               updates  
+    libpeas-loader-python3.x86_64                                       1.34.0-1.red80                                               @anaconda
+libpeas1-loader-python3.x86_64                                          1.36.0-1.red80                                               updates  
+    libpeas-loader-python3.x86_64                                       1.34.0-1.red80                                               @anaconda
+libpeas1-loader-python3.i686                                            1.36.0-2.red80                                               updates  
+    libpeas-loader-python3.x86_64                                       1.34.0-1.red80                                               @anaconda
+libpeas1-loader-python3.x86_64                                          1.36.0-2.red80                                               updates  
+    libpeas-loader-python3.x86_64                                       1.34.0-1.red80                                               @anaconda
+libwinpr.i686                                                           4:2.11.7-5.red80                                             updates  
+    libwinpr.x86_64                                                     3:3.10.3-1.red80                                             @anaconda
+libwinpr.x86_64                                                         4:2.11.7-5.red80                                             updates  
+    libwinpr.x86_64                                                     3:3.10.3-1.red80                                             @anaconda
+nss-pam-ldapd.i686                                                      0.9.10-11.red80                                              base     
+    pam_ldap.x86_64                                                     185-16.red80                                                 @anaconda
+nss-pam-ldapd.x86_64                                                    0.9.10-11.red80                                              base     
+    pam_ldap.x86_64                                                     185-16.red80                                                 @anaconda
+nss-pam-ldapd.i686                                                      0.9.10-12.red80                                              updates  
+    pam_ldap.x86_64                                                     185-16.red80                                                 @anaconda
+nss-pam-ldapd.x86_64                                                    0.9.10-12.red80                                              updates  
+    pam_ldap.x86_64                                                     185-16.red80                                                 @anaconda
+pipewire-jack-audio-connection-kit.i686                                 1.0.3-3.red80                                                base     
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.x86_64                               1.0.3-3.red80                                                base     
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.i686                                 1.0.9-2.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.x86_64                               1.0.9-2.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.i686                                 1.0.9-3.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.x86_64                               1.0.9-3.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.i686                                 1.2.7-4.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+pipewire-jack-audio-connection-kit.x86_64                               1.2.7-4.red80                                                updates  
+    jack-audio-connection-kit.x86_64                                    1.9.19-3.red80                                               @anaconda
+python3-file-magic.noarch                                               5.42-4.red80                                                 base     
+    python3-magic.noarch                                                0.4.27-2.red80                                               @anaconda
+sdl12-compat.i686                                                       0.0.1~git.20210926.c6cfc8f-3.red80                           base     
+    SDL.x86_64                                                          1.2.15-18.red80                                              @anaconda
+sdl12-compat.x86_64                                                     0.0.1~git.20210926.c6cfc8f-3.red80                           base     
+    SDL.x86_64                                                          1.2.15-18.red80                                              @anaconda
+tuned-ppd.noarch                                                        2.25.1-2.red80                                               updates  
+    power-profiles-daemon.x86_64                                        0.20-1.red80                                                 @anaconda
+tuned-ppd.noarch                                                        2.25.1-3.red80                                               updates  
+    power-profiles-daemon.x86_64                                        0.20-1.red80                                                 @anaconda
+webrtc-audio-processing0.3.i686                                         0.3.1-2.red80                                                updates  
+    webrtc-audio-processing.x86_64                                      0.3.1-8.red80                                                @anaconda
+webrtc-audio-processing0.3.x86_64                                       0.3.1-2.red80                                                updates  
+    webrtc-audio-processing.x86_64                                      0.3.1-8.red80                                                @anaconda
+zlib-ng-compat.i686                                                     2.2.5-2.red80                                                updates  
+    zlib.x86_64                                                         1.2.13-1.red80                                               @anaconda
+zlib-ng-compat.x86_64                                                   2.2.5-2.red80                                                updates  
+    zlib.x86_64                                                         1.2.13-1.red80                                               @anaconda
+[grushinda@mephi-2026 ~]$ sudo dnf install nginx -y
+[sudo] пароль для grushinda: 
+Последняя проверка окончания срока действия метаданных: 0:07:57 назад, Пт 03 апр 2026 20:54:15.
+Зависимости разрешены.
+==============================================================================================================================================
+ Пакет                                 Архитектура                 Версия                                  Репозиторий                  Размер
+==============================================================================================================================================
+Установка:
+ nginx                                 x86_64                      1:1.28.2-1.red80                        updates                       33 k
+Установка зависимостей:
+ nginx-core                            x86_64                      1:1.28.2-1.red80                        updates                      668 k
+ nginx-filesystem                      noarch                      1:1.28.2-1.red80                        updates                      8.7 k
+ nginx-mimetypes                       noarch                      2.1.53-3.red80                          base                          20 k
+
+Результат транзакции
+==============================================================================================================================================
+Установка  4 Пакета
+
+Объем загрузки: 730 k
+Объем изменений: 2.0 M
+Загрузка пакетов:
+(1/4): nginx-mimetypes-2.1.53-3.red80.noarch.rpm                                                               35 kB/s |  20 kB     00:00    
+(2/4): nginx-1.28.2-1.red80.x86_64.rpm                                                                         57 kB/s |  33 kB     00:00    
+(3/4): nginx-filesystem-1.28.2-1.red80.noarch.rpm                                                              56 kB/s | 8.7 kB     00:00    
+(4/4): nginx-core-1.28.2-1.red80.x86_64.rpm                                                                   865 kB/s | 668 kB     00:00    
+----------------------------------------------------------------------------------------------------------------------------------------------
+Общий размер                                                                                                  915 kB/s | 730 kB     00:00     
+Проверка транзакции
+Проверка транзакции успешно завершена.
+Идет проверка транзакции
+Тест транзакции проведен успешно.
+Выполнение транзакции
+  Подготовка       :                                                                                                                      1/1 
+  Запуск скриптлета: nginx-filesystem-1:1.28.2-1.red80.noarch                                                                             1/4 
+  Установка        : nginx-filesystem-1:1.28.2-1.red80.noarch                                                                             1/4 
+  Установка        : nginx-mimetypes-2.1.53-3.red80.noarch                                                                                2/4 
+  Установка        : nginx-core-1:1.28.2-1.red80.x86_64                                                                                   3/4 
+  Установка        : nginx-1:1.28.2-1.red80.x86_64                                                                                        4/4 
+  Запуск скриптлета: nginx-1:1.28.2-1.red80.x86_64                                                                                        4/4 
+  Проверка         : nginx-mimetypes-2.1.53-3.red80.noarch                                                                                1/4 
+  Проверка         : nginx-1:1.28.2-1.red80.x86_64                                                                                        2/4 
+  Проверка         : nginx-core-1:1.28.2-1.red80.x86_64                                                                                   3/4 
+  Проверка         : nginx-filesystem-1:1.28.2-1.red80.noarch                                                                             4/4 
+
+Установлен:
+  nginx-1:1.28.2-1.red80.x86_64                  nginx-core-1:1.28.2-1.red80.x86_64          nginx-filesystem-1:1.28.2-1.red80.noarch         
+  nginx-mimetypes-2.1.53-3.red80.noarch         
+
+Выполнено!
+[grushinda@mephi-2026 ~]$ sudo dnf install tcpdump -y
+Последняя проверка окончания срока действия метаданных: 0:08:21 назад, Пт 03 апр 2026 20:54:15.
+Пакет tcpdump-14:4.99.4-4.red80.x86_64 уже установлен.
+Зависимости разрешены.
+Отсутствуют действия для выполнения.
+Выполнено!
+[grushinda@mephi-2026 ~]$ sudo dnf install libcap-ng-utils -y
+Последняя проверка окончания срока действия метаданных: 0:08:47 назад, Пт 03 апр 2026 20:54:15.
+Зависимости разрешены.
+==============================================================================================================================================
+ Пакет                                  Архитектура                   Версия                                Репозиторий                 Размер
+==============================================================================================================================================
+Установка:
+ libcap-ng-utils                        x86_64                        0.8.3-3.red80                         base                         36 k
+
+Результат транзакции
+==============================================================================================================================================
+Установка  1 Пакет
+
+Объем загрузки: 36 k
+Объем изменений: 87 k
+Загрузка пакетов:
+libcap-ng-utils-0.8.3-3.red80.x86_64.rpm                                                                      240 kB/s |  36 kB     00:00    
+----------------------------------------------------------------------------------------------------------------------------------------------
+Общий размер                                                                                                  225 kB/s |  36 kB     00:00     
+Проверка транзакции
+Проверка транзакции успешно завершена.
+Идет проверка транзакции
+Тест транзакции проведен успешно.
+Выполнение транзакции
+  Подготовка       :                                                                                                                      1/1 
+  Установка        : libcap-ng-utils-0.8.3-3.red80.x86_64                                                                                 1/1 
+  Запуск скриптлета: libcap-ng-utils-0.8.3-3.red80.x86_64                                                                                 1/1 
+  Проверка         : libcap-ng-utils-0.8.3-3.red80.x86_64                                                                                 1/1 
+
+Установлен:
+  libcap-ng-utils-0.8.3-3.red80.x86_64                                                                                                        
+
+Выполнено!
+[grushinda@mephi-2026 ~]$ nginx -v
+nginx version: nginx/1.28.2
+[grushinda@mephi-2026 ~]$ tcpdump --version
+tcpdump version 4.99.4
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.1.5 30 Jan 2024
+[grushinda@mephi-2026 ~]$ getcap --version
+getcap: invalid option -- '-'
+usage: getcap [-h] [-l] [-n] [-r] [-v] <filename> [<filename> ...]
+
+	displays the capabilities on the queried file(s).
+[grushinda@mephi-2026 ~]$ 
+
+
+[grushinda@mephi-2026 ~]$ cd /tmp
+[grushinda@mephi-2026 tmp]$ sudo dnf download tcpdump
+[sudo] пароль для grushinda: 
+Последняя проверка окончания срока действия метаданных: 0:15:16 назад, Пт 03 апр 2026 20:54:15.
+(1/2): tcpdump-4.99.5-1.red80.x86_64.rpm                                                                      3.5 MB/s | 523 kB     00:00    
+(2/2): tcpdump-4.99.5-1.red80.i686.rpm                                                                        2.3 MB/s | 530 kB     00:00    
+[grushinda@mephi-2026 tmp]$ ls /tmp | grep tcpdump
+tcpdump-4.99.5-1.red80.i686.rpm
+tcpdump-4.99.5-1.red80.x86_64.rpm
+[grushinda@mephi-2026 tmp]$ sudo rpm -ivh tcpdump*.rpm
+ошибка: Неудовлетворенные зависимости:
+	libc.so.6 нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.0) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.1) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.1.3) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.11) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.3) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.3.3) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.3.4) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.33) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.34) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.4) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libc.so.6(GLIBC_2.7) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libcrypto.so.3 нужен для tcpdump-14:4.99.5-1.red80.i686
+	libcrypto.so.3(OPENSSL_3.0.0) нужен для tcpdump-14:4.99.5-1.red80.i686
+	libpcap.so.1 нужен для tcpdump-14:4.99.5-1.red80.i686
+[grushinda@mephi-2026 tmp]$ rpm -q tcpdump
+tcpdump-4.99.4-4.red80.x86_64
+[grushinda@mephi-2026 tmp]$ 
+[grushinda@mephi-2026 tmp]$ ls -l
+итого 1060
+-rw-r--r--. 1 grushinda grushinda    852 апр  3 20:44 network_check.txt
+drwx------. 2 grushinda grushinda     60 апр  3 20:31 ssh-XXXXXXEOCJqU
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-chronyd.service-kWguKs
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-colord.service-18T674
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-dbus-broker.service-SgellC
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-ModemManager.service-sd7SZD
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-polkit.service-8xyGgR
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-postfix.service-k682fA
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-power-profiles-daemon.service-VCAjwR
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-rtkit-daemon.service-LAu785
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-systemd-logind.service-WW1zvB
+drwx------. 3 root      root          60 апр  3 20:29 systemd-private-2b0bc2d23ce24763846193fc729e491c-systemd-resolved.service-lmPe3R
+drwx------. 3 root      root          60 апр  3 20:30 systemd-private-2b0bc2d23ce24763846193fc729e491c-upower.service-LqvLb8
+-rw-r--r--. 1 root      root      542686 апр  3 21:09 tcpdump-4.99.5-1.red80.i686.rpm
+-rw-r--r--. 1 root      root      535524 апр  3 21:09 tcpdump-4.99.5-1.red80.x86_64.rpm
+
+
+
+
+ [grushinda@mephi-2026 ~]$ lsblk
+\NAME   MAJ:MIN RM  SIZE RO TYPE MOUNTPOINTS
+sda      8:0    0 79,4G  0 disk 
+├─sda1   8:1    0  600M  0 part /boot/efi
+├─sda2   8:2    0    1G  0 part /boot
+├─sda3   8:3    0  7,9G  0 part [SWAP]
+├─sda4   8:4    0   47G  0 part /
+└─sda5   8:5    0 22,9G  0 part /home
+sdb      8:16   0  1,2G  0 disk 
+sr0     11:0    1 1024M  0 rom  
+zram0  252:0    0  7,8G  0 disk [SWAP]
+[grushinda@mephi-2026 ~]$ sudo fdisk /dev/sdb
+[sudo] пароль для grushinda: 
+
+Добро пожаловать в fdisk (util-linux 2.38.1).
+Изменения останутся только в памяти до тех пор, пока вы не решите записать их.
+Будьте внимательны, используя команду write.
+
+Устройство не содержит стандартной таблицы разделов.
+Создана новая метка DOS с идентификатором 0x4c6abe6a.
+
+Команда (m для справки): 
+
+
+Команда (m для справки): m
+
+Справка:
+
+  DOS (MBR)
+   a   переключение флага загрузки
+   b   редактирование вложенной метки диска BSD
+   c   переключение флага dos-совместимости
+
+  Общие
+   d   удалить раздел
+   F   показать свободное неразмеченное пространство
+   l   список известных типов разделов
+   n   добавление нового раздела
+   p   вывести таблицу разделов
+   t   изменение типа раздела
+   v   проверка таблицы разделов
+   i   вывести информацию о разделе
+
+  Разное
+   m   вывод этого меню
+   u   изменение единиц измерения экрана/содержимого
+   x   дополнительная функциональность (только для экспертов)
+
+  Сценарий
+   I   загрузить разметку из файла сценария sfdisk
+   O   записать разметку в файл сценария sfdisk
+
+  Записать и выйти
+   w   запись таблицы разделов на диск и выход
+   q   выход без сохранения изменений
+
+  Создать новую метку
+   g   создание новой пустой таблицы разделов GPT
+   G   создание новой пустой таблицы разделов SGI (IRIX)
+   o   создание новой пустой таблицы разделов DOS
+   s   создание новой пустой таблицы разделов Sun
+
+
+Команда (m для справки): n
+Тип раздела
+   p   основной (0 primary, 0 extended, 4 free)
+   e   расширенный (контейнер для логических разделов)
+Выберите (по умолчанию - p):p
+Номер раздела (1-4, default 1): 1
+Первый сектор (2048-2516581, default 2048): 
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-2516581, default 2516581): w
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-2516581, default 2516581): 
+
+Создан новый раздел 1 с типом 'Linux' и размером 1,2 GiB.
+
+Команда (m для справки): w
+Таблица разделов была изменена.
+Вызывается ioctl() для перечитывания таблицы разделов.
+Синхронизируются диски.
+
+[grushinda@mephi-2026 ~]$ sudo mkfs.ext4 -L MEPHI_DATA /dev/sdb1
+mke2fs 1.46.3 (27-Jul-2021)
+Creating filesystem with 314316 4k blocks and 78720 inodes
+Filesystem UUID: aef3f82f-ace3-4b7c-b53c-c0ea4f097fe8
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (8192 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+[grushinda@mephi-2026 ~]$ lsblk -f /dev/sdb
+NAME FSTYPE FSVER LABEL UUID                                 FSAVAIL FSUSE% MOUNTPOINTS
+sdb                                                                         
+└─sdb1
+     ext4   1.0   MEPHI_DATA
+                        aef3f82f-ace3-4b7c-b53c-c0ea4f097fe8                
+[grushinda@mephi-2026 ~]$ 
+
+[grushinda@mephi-2026 ~]$ sudo mkdir -p /data/mephi-web
+[sudo] пароль для grushinda: 
+Попробуйте ещё раз.
+[sudo] пароль для grushinda: 
+[grushinda@mephi-2026 ~]$ echo "LABEL=MEPHI_DATA /data/mephi-web ext4 defaults 0 2" | sudo tee -a /etc/fstab
+LABEL=MEPHI_DATA /data/mephi-web ext4 defaults 0 2
+[grushinda@mephi-2026 ~]$ sudo mount -a
+mount: (hint) your fstab has been modified, but systemd still uses
+       the old version; use 'systemctl daemon-reload' to reload.
+[grushinda@mephi-2026 ~]$ df -h /data/mephi-web
+Файловая система Размер Использовано  Дост Использовано% Cмонтировано в
+/dev/sdb1          1,2G          24K  1,1G            1% /data/mephi-web
+[grushinda@mephi-2026 ~]$ sudo chmod 777 /data/mephi-web
+[grushinda@mephi-2026 ~]$
+
+
+
+
+[grushinda@mephi-2026 ~]$ 
+[grushinda@mephi-2026 ~]$ sudo systemctl start nginx
+[grushinda@mephi-2026 ~]$ sudo systemctl enable nginx
+Created symlink /etc/systemd/system/multi-user.target.wants/nginx.service → /usr/lib/systemd/system/nginx.service.
+[grushinda@mephi-2026 ~]$ systemctl status nginx
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: di>
+    Drop-In: /usr/lib/systemd/system/service.d
+             └─10-timeout-abort.conf
+     Active: active (running) since Fri 2026-04-03 23:21:14 MSK; 35s ago
+   Main PID: 2068 (nginx)
+      Tasks: 3 (limit: 9552)
+     Memory: 5.0M
+        CPU: 331ms
+     CGroup: /system.slice/nginx.service
+             ├─2068 "nginx: master process /usr/sbin/nginx"
+             ├─2069 "nginx: worker process"
+             └─2070 "nginx: worker process"
+
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Starting nginx.service - Th>
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: the configuration f>
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: configuration file >
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Started nginx.service - The>
+lines 1-18/18 (END)...skipping...
+● nginx.service - The nginx HTTP and reverse proxy server
+     Loaded: loaded (/usr/lib/systemd/system/nginx.service; enabled; preset: disabled)
+    Drop-In: /usr/lib/systemd/system/service.d
+             └─10-timeout-abort.conf
+     Active: active (running) since Fri 2026-04-03 23:21:14 MSK; 35s ago
+   Main PID: 2068 (nginx)
+      Tasks: 3 (limit: 9552)
+     Memory: 5.0M
+        CPU: 331ms
+     CGroup: /system.slice/nginx.service
+             ├─2068 "nginx: master process /usr/sbin/nginx"
+             ├─2069 "nginx: worker process"
+             └─2070 "nginx: worker process"
+
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Starting nginx.service - The nginx HTTP and reverse proxy server...
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Started nginx.service - The nginx HTTP and reverse proxy server.
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+~
+lines 1-18/18 (END)
+[grushinda@mephi-2026 ~]$ curl -I localhost
+HTTP/1.1 200 OK
+Server: nginx/1.28.2
+Date: Fri, 03 Apr 2026 20:27:15 GMT
+Content-Type: text/html
+Content-Length: 192988
+Last-Modified: Mon, 03 Mar 2025 10:36:34 GMT
+Connection: keep-alive
+ETag: "67c58632-2f1dc"
+Accept-Ranges: bytes
+
+[grushinda@mephi-2026 ~]$ 
+
+
+
+[grushinda@mephi-2026 ~]$ sudo journalctl -u nginx --since "5 minutes ago" > /tmp/nginx_recent_logs.txt
+[sudo] пароль для grushinda: 
+[grushinda@mephi-2026 ~]$ ls -l /tmp/nginx_recent_logs.txt
+-rw-r--r--. 1 grushinda grushinda 17 апр  3 23:29 /tmp/nginx_recent_logs.txt
+[grushinda@mephi-2026 ~]$ cat /tmp/nginx_recent_logs.txt
+-- No entries --
+[grushinda@mephi-2026 ~]$ sudo journalctl -u nginx --since "100 minutes ago" > /tmp/nginx_recent_logs.txt
+[grushinda@mephi-2026 ~]$ cat /tmp/nginx_recent_logs.txt
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Starting nginx.service - The nginx HTTP and reverse proxy server...
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Started nginx.service - The nginx HTTP and reverse proxy server.
+[grushinda@mephi-2026 ~]$ sudo journalctl -u nginx --since "100 minutes ago" > /tmp/nginx_recent_logs.txt
+[grushinda@mephi-2026 ~]$ cat /tmp/nginx_recent_logs.txt
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Starting nginx.service - The nginx HTTP and reverse proxy server...
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+апр 03 23:21:14 mephi-2026.domain.local nginx[2066]: nginx: configuration file /etc/nginx/nginx.conf test is successful
+апр 03 23:21:14 mephi-2026.domain.local systemd[1]: Started nginx.service - The nginx HTTP and reverse proxy server.
+[grushinda@mephi-2026 ~]$ 
+
+
+
+
+[grushinda@mephi-2026 ~]$ sudo groupadd mephi-devs
+[sudo] пароль для grushinda: 
+[grushinda@mephi-2026 ~]$ ^[[200~sudo groupadd mephi-devs~
+bash: $'\E[200~sudo': команда не найдена
+sudo groupadd mephi-devs~[grushinda@mephi-2026 ~]$ sudo groupadd mephi-devs
+groupadd: группа «mephi-devs» уже существует
+[grushinda@mephi-2026 ~]$ sudo useradd -g mephi-devs mephi-admin
+[grushinda@mephi-2026 ~]$ echo "mephi-admin:P@ssw0rd2026" | sudo chpasswd
+[grushinda@mephi-2026 ~]$ sudo chown mephi-admin:mephi-devs /data/mephi-web
+[grushinda@mephi-2026 ~]$ sudo chmod 2775 /data/mephi-web
+[grushinda@mephi-2026 ~]$ ls -ld /data/mephi-web
+drwxrwsr-x. 3 mephi-admin mephi-devs 4096 апр  3 23:01 /data/mephi-web
+[grushinda@mephi-2026 ~]$ sudo semanage fcontext -a -t httpd_sys_content_t "/data/mephi-web(/.*)?"
+[grushinda@mephi-2026 ~]$ sudo restorecon -Rv /data/mephi-web
+Relabeled /data/mephi-web from system_u:object_r:unlabeled_t:s0 to system_u:object_r:httpd_sys_content_t:s0
+Relabeled /data/mephi-web/lost+found from system_u:object_r:unlabeled_t:s0 to system_u:object_r:httpd_sys_content_t:s0
+[grushinda@mephi-2026 ~]$ ls -Z /data/mephi-web
+system_u:object_r:httpd_sys_content_t:s0 lost+found
+[grushinda@mephi-2026 ~]$ sudo chmod u-s /usr/sbin/tcpdump
+[grushinda@mephi-2026 ~]$ sudo setcap 'cap_net_raw,cap_net_admin+ep' /usr/sbin/tcpdump
+[grushinda@mephi-2026 ~]$ getcap /usr/sbin/tcpdump
+/usr/sbin/tcpdump cap_net_admin,cap_net_raw=ep
+[grushinda@mephi-2026 ~]$ sudo -u mephi-admin tcpdump --help
+tcpdump version 4.99.4
+libpcap version 1.10.1 (with TPACKET_V3)
+OpenSSL 3.1.5 30 Jan 2024
+Usage: tcpdump [-AbdDefhHIJKlLnNOpqStuUvxX#] [ -B size ] [ -c count ] [--count]
+		[ -C file_size ] [ -E algo:secret ] [ -F file ] [ -G seconds ]
+		[ -i interface ] [ --immediate-mode ] [ -j tstamptype ]
+		[ -M secret ] [ --number ] [ --print ] [ -Q in|out|inout ]
+		[ -r file ] [ -s snaplen ] [ -T type ] [ --version ]
+		[ -V file ] [ -w file ] [ -W filecount ] [ -y datalinktype ]
+		[ --time-stamp-precision precision ] [ --micro ] [ --nano ]
+		[ -z postrotate-command ] [ -Z user ] [ expression ]
+[grushinda@mephi-2026 ~]$ 
+
+
+
+[grushinda@mephi-2026 ~]$ cd mephi
+[grushinda@mephi-2026 ~]$ cd /mepho/
+[grushinda@mephi-2026 ~]$ history
+[grushinda@mephi-2026 ~]$ cd /mephi/projects/
+[grushinda@mephi-2026 ~]$ cd /mephi
+[grushinda@mephi-2026 ~]$ sudo mkdir -p /mephi/projects/368603-dir
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0 ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0 ipv4.gateway 192.168.1.1
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0 ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli con up eth0
+[grushinda@mephi-2026 ~]$ nmcli device
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0s3 ipv4.gateway 192.168.1.1
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0s3 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod eth0s3ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli con up eth0s3
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli con up enp0s3
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.gateway 192.168.1.1
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli con mod enp0s3 ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli con up enp0s3
+[grushinda@mephi-2026 ~]$ sudo hostnamectl set-hostname mephi-2026.domain.local
+[grushinda@mephi-2026 ~]$ hostnamectl status
+[grushinda@mephi-2026 ~]$ killall plank
+[grushinda@mephi-2026 ~]$ plank --preferences
+[grushinda@mephi-2026 ~]$ killall plank
+[grushinda@mephi-2026 ~]$ ps aux | grep plank
+[grushinda@mephi-2026 ~]$ mate-session-properties
+[grushinda@mephi-2026 ~]$ pkill -9 plank
+[grushinda@mephi-2026 ~]$ sudo dnf remove plank
+[grushinda@mephi-2026 ~]$ mate-display-properties
+[grushinda@mephi-2026 ~]$ nmcli device
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify lo ipv4.method manual
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify eth0 ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify lo ipv4.addresses 192.168.1.100/24
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify lo ipv4.gateway 192.168.1.1
+[grushinda@mephi-2026 ~]$ sudo nmcli connection modify lo ipv4.dns 8.8.8.8
+[grushinda@mephi-2026 ~]$ sudo nmcli connection up lo
+[grushinda@mephi-2026 ~]$ ip addr show lo
+[grushinda@mephi-2026 ~]$ sudo hostnamectl set-hostname mephi-2026.domain.local
+[grushinda@mephi-2026 ~]$ sudo systemctl restart systemd-hostnamed
+[grushinda@mephi-2026 ~]$ hostnamectl
+[grushinda@mephi-2026 ~]$ history > ~/project_history.txt
